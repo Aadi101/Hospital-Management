@@ -1,4 +1,4 @@
-package model;
+package com;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -59,11 +59,12 @@ public class Hospital {
 					preparedStmt.execute();
 					con.close();
 					
-					output = "Inserted successfully";
+					String newHospital = readHospital();
+					output = "{\"status\":\"success\", \"data\": \"" + newHospital + "\"}";
 				}
 				catch (Exception e)
 				{
-					output = "Error while inserting the hospital details.";
+					output = "{\"status\":\"error\", \"data\": \"Error while inserting the hospital details. \"}";
 					System.err.println(e.getMessage());
 				}
 				
@@ -81,7 +82,7 @@ public class Hospital {
 					{return "Error while connecting to the database for reading."; }
 					
 					// Prepare the html table to be displayed
-					output = "<table border=\"1\"><tr><th>ID</th><th>Hospital Name</th><th>Hospital Mail</th><th>Province</th><th>City</th><th>PostalCode</th><th>Phone No</th><th>ER</th><th>Surgery</th><th>Xray</th><th>Lab</th><th>Goverment</th><th>Update</th><th>Remove</th></tr>";
+					output = "<table border=\'1\'><tr><th>ID</th><th>Hospital Name</th><th>Hospital Mail</th><th>Province</th><th>City</th><th>PostalCode</th><th>Phone No</th><th>ER</th><th>Surgery</th><th>Xray</th><th>Lab</th><th>Goverment</th><th>Update</th><th>Remove</th></tr>";
 					
 					String query = "select * from hospital";
 					Statement stmt = con.createStatement();
@@ -104,7 +105,7 @@ public class Hospital {
 						String gov = Boolean.toString(rs.getBoolean("gov"));
 					
 						// Add into the html table
-						output += "<tr><td><input id=\"hidHosIDUpdate\" name=\"hidHosIDUpdate\" type=\"hidden\" value=\"" + id + "\">" + id + "</td>";
+						output += "<tr><td><input id=\'hidHosIDUpdate\' name=\'hidHosIDUpdate\' type=\'hidden\' value=\'' + id + '\'>" + id + "</td>";
 						output += "<td>" + hosName + "</td>";
 						output += "<td>" + email + "</td>";
 						output += "<td>" + provice + "</td>";
@@ -118,11 +119,10 @@ public class Hospital {
 						output += "<td>" + gov + "</td>";
 					
 						// buttons
-						output += "<td><input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\" btnUpdate btn btn-secondary\"></td>"
-								+ "<td><form method=\"post\" action=\"hospitals.jsp\">"
-								+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-								+ "<input name=\"btnApooint\" type=\"submit\" value=\"Appoint\"class=\"btn btn-secondary\">"
-								+ "<input name=\"hidHosIDDelete\" type=\"hidden\" value=\"" + id+ "\">" + "</form></td></tr>";
+						output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
+								+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-id='"
+										 + id + "'>" + "</td></tr>";
+								
 					}
 					
 					con.close();
@@ -174,11 +174,12 @@ public class Hospital {
 					preparedStmt.execute();
 					con.close();
 			
-					output = "Updated successfully";
+					String newHospital = readHospital();
+					output = "{\"status\":\"success\", \"data\": \"" + newHospital + "\"}";
 			}
 			catch (Exception e)
 			{
-				output = "Error while updating the hospital details.";
+				output = "{\"status\":\"error\", \"data\": \"Error while updating the hospital details. \"}";
 				System.err.println(e.getMessage());
 			}
 				return output;
@@ -207,12 +208,12 @@ public class Hospital {
 				preparedStmt.execute();
 				con.close();
 			
-				output = "Deleted successfully";
+				String newHospital = readHospital();
+				output = "{\"status\":\"success\", \"data\": \"" + newHospital + "\"}";
 			}
 			catch (Exception e)
 			{
-				output = "Error while deleting the hospital details.";
-				System.err.println(e.getMessage());
+				output = "{\"status\":\"error\", \"data\":\"Error while deleting the hospital.\"}"; 				System.err.println(e.getMessage());
 			}
 			
 			return output;
