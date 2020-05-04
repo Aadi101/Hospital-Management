@@ -82,7 +82,7 @@ public class Hospital {
 					{return "Error while connecting to the database for reading."; }
 					
 					// Prepare the html table to be displayed
-					output = "<table border=\'1\'><tr><th>ID</th><th>Hospital Name</th><th>Hospital Mail</th><th>Province</th><th>City</th><th>PostalCode</th><th>Phone No</th><th>ER</th><th>Surgery</th><th>Xray</th><th>Lab</th><th>Goverment</th><th>Update</th><th>Remove</th></tr>";
+					output = "<table border='1\'><tr><th>ID</th><th>Hospital Name</th><th>Hospital Mail</th><th>Province</th><th>City</th><th>PostalCode</th><th>Phone No</th><th>ER</th><th>Surgery</th><th>Xray</th><th>Lab</th><th>Goverment</th><th>Update</th><th>Remove</th></tr>";
 					
 					String query = "select * from hospital";
 					Statement stmt = con.createStatement();
@@ -105,7 +105,7 @@ public class Hospital {
 						String gov = Boolean.toString(rs.getBoolean("gov"));
 					
 						// Add into the html table
-						output += "<tr><td><input id=\'hidHosIDUpdate\' name=\'hidHosIDUpdate\' type=\'hidden\' value=\'' + id + '\'>" + id + "</td>";
+						output += "<tr><td><input id='hidHosIDUpdate' name='hidHosIDUpdate' type='hidden' value='' + id + >" + id + "</td>";
 						output += "<td>" + hosName + "</td>";
 						output += "<td>" + email + "</td>";
 						output += "<td>" + provice + "</td>";
@@ -167,7 +167,7 @@ public class Hospital {
 					preparedStmt.setString(9, xray);
 					preparedStmt.setString(10, lab);
 					preparedStmt.setString(11, gov);
-					preparedStmt.setInt(12, Integer.parseInt(id));
+					preparedStmt.setString(12, id);
 					
 			
 					// execute the statement

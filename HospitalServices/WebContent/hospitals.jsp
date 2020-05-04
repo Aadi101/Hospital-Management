@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col-6">
 				<h1 style="text-align:center">Hospital Management</h1>
-				<form id="formHospital" name="formHospital" method="post" action="hospitals.jsp">
+				<form id="formHospital" name="formHospital" action="hospitals.jsp">
 				  	Hospital ID:
 				  	<input id="hosID" name="hosID" type="text" 
 				 	         class="form-control form-control-sm">

@@ -49,7 +49,7 @@ public class HospitalAPI extends HttpServlet {
 		boolean gov= Boolean.parseBoolean(request.getParameter("gov"));
 		int poscode = Integer.parseInt(request.getParameter("posCode"));
 		int phone = Integer.parseInt(request.getParameter("phnNo"));
-		System.out.println(request.getParameter("id"));
+		//System.out.println(request.getParameter("id"));
 		
 		String output = hosObj.insertHospital(request.getParameter("hosID"),
 												request.getParameter("hosName"),
@@ -81,7 +81,7 @@ public class HospitalAPI extends HttpServlet {
 		Map paras = getParasMap(request);
 		
 		String output = hosObj.updateHospital(
-				paras.get("hosID").toString(),
+				paras.get("hidHosIDSave").toString(),
 				paras.get("hosName").toString(),
 				paras.get("hosMail").toString(),
 				paras.get("prov").toString(),
