@@ -139,7 +139,7 @@ public class Hospital {
 			}
 	 		
 			// Update function
-			public String updateHospital(String id, String hosname, String email, String prov, String city,String pc,String phn,String er,String surg,String xray,String lab,String gov)
+			public String updateHospital(String hosID, String hosName, String hosMail, String prov, String city,String posCode,String phnNo,String er,String surg,String xray,String lab,String gov)
 			{
 			String output = "";
 			
@@ -154,20 +154,20 @@ public class Hospital {
 					String query = "update hospital set hosname=?,email=?,prov=?,city=?,pc=?,phn=?,er=?,surg=?,xray=?,lab=?,gov=? where hosid=?;";
 									
 					PreparedStatement preparedStmt = con.prepareStatement(query);
-			
+
 					// binding values
-					preparedStmt.setString(1, hosname);
-					preparedStmt.setString(2, email);
+					preparedStmt.setString(1, hosName);
+					preparedStmt.setString(2, hosMail);
 					preparedStmt.setString(3, prov);
 					preparedStmt.setString(4, city);
-					preparedStmt.setString(5, pc);
-					preparedStmt.setString(6, phn);
+					preparedStmt.setString(5, posCode);
+					preparedStmt.setString(6, phnNo);
 					preparedStmt.setString(7, er);
 					preparedStmt.setString(8, surg);
 					preparedStmt.setString(9, xray);
 					preparedStmt.setString(10, lab);
 					preparedStmt.setString(11, gov);
-					preparedStmt.setString(12, id);
+					preparedStmt.setString(12, hosID);
 					
 			
 					// execute the statement
@@ -213,66 +213,67 @@ public class Hospital {
 			}
 			catch (Exception e)
 			{
-				output = "{\"status\":\"error\", \"data\":\"Error while deleting the hospital.\"}"; 				System.err.println(e.getMessage());
+				output = "{\"status\":\"error\", \"data\":\"Error while deleting the hospital.\"}";
+				System.err.println(e.getMessage());
 			}
 			
 			return output;
 			}
 		
 		//getAppointments
-		public String readAppointment(int id)
-		{
-			String output = "";
-				
-			try
-			{
-				Connection con = connect();
-				if (con == null)
-				{return "Error while connecting to the database for reading."; }
-				
-				// Prepare the html table to be displayed
-				output = "<table border=\"1\"><tr><th>ID</th><th>HospitalID</th><th>Date</th><th>Time</th><th>Decription</th><th>Status</th><th>Update</th><th>Remove</th></tr>";
-				
-				String query = "select * from appointments where hospitalid=" + id;
-				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery(query);
-				
-				// iterate through the rows in the result set
-				while (rs.next())
-				{
-					String appointid = Integer.toString(rs.getInt("appointid"));
-					String date = rs.getString("date");
-					String time = rs.getString("time");
-					String description =rs.getString("description");
-					String status = rs.getString("status");
-					String hospitalid = Integer.toString(rs.getInt("hospitalid"));
-				
-				
-					// Add into the html table
-					output += "<tr><td>" + appointid + "</td>";
-					output += "<td>" + date + "</td>";
-					output += "<td>" + time + "</td>";
-					output += "<td>" + description + "</td>";
-					output += "<td>" + status + "</td>";
-					output += "<td>" + hospitalid + "</td>";
-				
-					// buttons
-					output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"
-									+ "<td><form method=\"post\" action=\"hospital.jsp\">"+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-											+ "<input name=\"hosid\" type=\"hidden\" value=\"" + id
-											+ "\">" + "</form></td></tr>";
-				}
-				
-				con.close();
-				
-				// Complete the html table
-				output += "</table>";
-			}
-			catch (Exception e)
-			{
-				output = "Error while reading the hospital details.";
-				System.err.println(e.getMessage());
-			}
-			return output;
-		}
+//		public String readAppointment(int id)
+//		{
+//			String output = "";
+//				
+//			try
+//			{
+//				Connection con = connect();
+//				if (con == null)
+//				{return "Error while connecting to the database for reading."; }
+//				
+//				// Prepare the html table to be displayed
+//				output = "<table border=\"1\"><tr><th>ID</th><th>HospitalID</th><th>Date</th><th>Time</th><th>Decription</th><th>Status</th><th>Update</th><th>Remove</th></tr>";
+//				
+//				String query = "select * from appointments where hospitalid=" + id;
+//				Statement stmt = con.createStatement();
+//				ResultSet rs = stmt.executeQuery(query);
+//				
+//				// iterate through the rows in the result set
+//				while (rs.next())
+//				{
+//					String appointid = Integer.toString(rs.getInt("appointid"));
+//					String date = rs.getString("date");
+//					String time = rs.getString("time");
+//					String description =rs.getString("description");
+//					String status = rs.getString("status");
+//					String hospitalid = Integer.toString(rs.getInt("hospitalid"));
+//				
+//				
+//					// Add into the html table
+//					output += "<tr><td>" + appointid + "</td>";
+//					output += "<td>" + date + "</td>";
+//					output += "<td>" + time + "</td>";
+//					output += "<td>" + description + "</td>";
+//					output += "<td>" + status + "</td>";
+//					output += "<td>" + hospitalid + "</td>";
+//				
+//					// buttons
+//					output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"
+//									+ "<td><form method=\"post\" action=\"hospital.jsp\">"+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
+//											+ "<input name=\"hosid\" type=\"hidden\" value=\"" + id
+//											+ "\">" + "</form></td></tr>";
+//				}
+//				
+//				con.close();
+//				
+//				// Complete the html table
+//				output += "</table>";
+//			}
+//			catch (Exception e)
+//			{
+//				output = "Error while reading the hospital details.";
+//				System.err.println(e.getMessage());
+//			}
+//			return output;
+//		}
 }

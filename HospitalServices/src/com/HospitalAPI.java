@@ -49,7 +49,6 @@ public class HospitalAPI extends HttpServlet {
 		boolean gov= Boolean.parseBoolean(request.getParameter("gov"));
 		int poscode = Integer.parseInt(request.getParameter("posCode"));
 		int phone = Integer.parseInt(request.getParameter("phnNo"));
-		//System.out.println(request.getParameter("id"));
 		
 		String output = hosObj.insertHospital(request.getParameter("hosID"),
 												request.getParameter("hosName"),
@@ -80,21 +79,38 @@ public class HospitalAPI extends HttpServlet {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
 		
+		System.out.println("PUT function called");
+		//Replacing numbers and special characters while updating 
+		String hosMail = paras.get("hosMail").toString();
+		String NewhosMail = hosMail.replace("%40", "@");
+		
+		String hosName = paras.get("hosName").toString();
+		String newhosName = hosName.replace("+", " ");
+		
 		String output = hosObj.updateHospital(
-				paras.get("hidHosIDSave").toString(),
-				paras.get("hosName").toString(),
-				paras.get("hosMail").toString(),
+				paras.get("hosID").toString(),
+				newhosName,
+				NewhosMail,
 				paras.get("prov").toString(),
 				paras.get("city").toString(),
 				paras.get("posCode").toString(),
 				paras.get("phnNo").toString(),
-				paras.get("er").toString(),
-				paras.get("surg").toString(),
-				paras.get("xray").toString(),
-				paras.get("lab").toString(),
-				paras.get("gov").toString());
+				convertTobool(paras.get("er").toString()),
+				convertTobool(paras.get("surg").toString()),
+				convertTobool(paras.get("xray").toString()),
+				convertTobool(paras.get("lab").toString()),
+				convertTobool(paras.get("gov").toString()));
 		
 		response.getWriter().write(output);
+	}
+	
+	//Converting to Boolean values
+	public String convertTobool(String inputBool) {
+		if (inputBool.equals("true")) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 
 	/**

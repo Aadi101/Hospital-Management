@@ -27,7 +27,16 @@ $(document).on("click", "#btnSave", function(event)
 	}
 	
 	//If valid-------------------------
-	var type = ($("#hidHosIDSave").val() == "" ) ? "POST"  : "PUT";
+//	var type = ($("#hidHosIDSave").val() == "" ) ? "POST" : "PUT";
+	
+	var type;
+	
+	if($("#hidHosIDSave").val() == ""){
+		type = "POST";
+	}
+	else{
+		type = "PUT";
+	}
 	
 	$.ajax(
 	{
@@ -77,7 +86,8 @@ function onHospitalSaveComplete(response, status)
 //UPDATE==============================================
 $(document).on("click", ".btnUpdate",function(event)
 {
-	$("#hidHosIDSave").val($(this).closest("tr").find('#hidHosIDUpdate').val());
+	document.getElementById("hidHosIDSave").value = "Update";
+//	$("#hidHosIDSave").val($(this).closest("tr").find('#hidHosIDUpdate').val("Update"));
 	$("#hosID").val($(this).closest("tr").find('td:eq(0)').text());
 	$("#hosName").val($(this).closest("tr").find('td:eq(1)').text());
 	$("#hosMail").val($(this).closest("tr").find('td:eq(2)').text());
@@ -85,11 +95,11 @@ $(document).on("click", ".btnUpdate",function(event)
 	$("#city").val($(this).closest("tr").find('td:eq(4)').text());
 	$("#posCode").val($(this).closest("tr").find('td:eq(5)').text());
 	$("#phnNo").val($(this).closest("tr").find('td:eq(6)').text());
-	$("#er").val($(this).closest("tr").find('td:eq(7)').text());
-	$("#surg").val($(this).closest("tr").find('td:eq(8)').text());
-	$("#xray").val($(this).closest("tr").find('td:eq(9)').text());
-	$("#lab").val($(this).closest("tr").find('td:eq(10)').text());
-	$("#gov").val($(this).closest("tr").find('td:eq(11)').text());
+//	$("#er").val($(this).closest("tr").find('td:eq(7)').text());
+//	$("#surg").val($(this).closest("tr").find('td:eq(8)').text());
+//	$("#xray").val($(this).closest("tr").find('td:eq(9)').text());
+//	$("#lab").val($(this).closest("tr").find('td:eq(10)').text());
+//	$("#gov").val($(this).closest("tr").find('td:eq(11)').text());
 });
 
 $(document).on("click", ".btnRemove", function(event)
